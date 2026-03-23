@@ -1,4 +1,4 @@
-FROM devinstance/evolution-api:latest
+FROM atendai/evolution-api:latest
 
 # Força o ambiente para SQLite em nível de sistema
 ENV DB_TYPE=sqlite
