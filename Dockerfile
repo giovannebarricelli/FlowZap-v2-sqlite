@@ -1,11 +1,11 @@
-FROM atendai/evolution-api:latest
+ROM atendai/evolution-api:latest
 
-# Define que vamos usar SQLite e onde o arquivo vai ficar (no seu disco do Render)
+# Configurações brutas (sem aspas para não confundir o motor)
 ENV DB_TYPE=sqlite
-ENV DATABASE_URL="file:/data/database.sqlite"
+ENV DATABASE_URL=file:/data/database.sqlite
+ENV DATABASE_CONNECTION_URI=file:/data/database.sqlite
 
-# Otimização para o Render não se perder no build
+# Garante que o ambiente seja produção
 ENV NODE_ENV=production
 
-# Comando de inicialização oficial da imagem que já faz tudo sozinho
 CMD ["npm", "run", "start:prod"]
