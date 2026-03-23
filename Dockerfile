@@ -1,13 +1,11 @@
 FROM atendai/evolution-api:latest
 
-# Força o ambiente para SQLite em nível de sistema
+# Define que vamos usar SQLite e onde o arquivo vai ficar (no seu disco do Render)
 ENV DB_TYPE=sqlite
 ENV DATABASE_URL="file:/data/database.sqlite"
-ENV DATABASE_CONNECTION_URI="file:/data/database.sqlite"
 
-# Limpa o cache do Prisma e força a geração do client SQLite
-RUN rm -rf ./node_modules/.prisma/client && \
-    npx prisma generate --schema=./node_modules/@evolution-api/prisma/schema.sqlite.prisma
+# Otimização para o Render não se perder no build
+ENV NODE_ENV=production
 
-# Comando de inicialização que ignora migrações pendentes de Postgres
-CMD ["sh", "-c", "npx prisma generate --schema=./node_modules/@evolution-api/prisma/schema.sqlite.prisma && npm run start:prod"]
+# Comando de inicialização oficial da imagem que já faz tudo sozinho
+CMD ["npm", "run", "start:prod"]
